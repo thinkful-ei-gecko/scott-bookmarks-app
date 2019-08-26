@@ -2,6 +2,7 @@
 //api.createNewBookmark('title', 5, 'http://', 'words, words, words')
 
 $(document).ready(function() {
+    bookmarks.eventListeners();
     bookmarks.render();
     api.getBookmarks() 
         .then(data => {

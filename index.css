@@ -1,0 +1,36 @@
+* {
+    box-sizing: border-box;
+}
+
+li {
+    list-style-type: none;
+}
+
+.bookmark-item {
+    display: flex;
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    justify-content: space-around;
+}
+.visit-site-button {
+    display: flex;
+    width: 100px;
+    margin: 0 auto;
+}
+
+
+.bookmark-box {
+    border: 1px solid black;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.add-or-filter {
+    width: 80%;
+    margin: 0 auto;
+}
+
+header {
+    text-align: center;
+}
