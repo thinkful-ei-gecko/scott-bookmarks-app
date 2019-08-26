@@ -19,7 +19,7 @@ const store = (function(){
     }
     
     const setMinRatingFilter = function(rating) {
-        this.minRatingFilter = rating;
+        this.minRating = rating;
     }
 
 

@@ -32,8 +32,6 @@ const api = (function() {
             url,
             desc,
         }
-
-        console.log(JSON.stringify(newBookmark));
         return listApiFetch(`${baseUrl}/bookmarks`, {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(newBookmark)});
     }
 

@@ -2,37 +2,35 @@
 
 const bookmarks = (function() {
     function render() {
+        if (store.adding) {
+            $('.add-or-filter').html(generateAddForm());
+        } else {
+            $('.add-or-filter').html(generateAddFilter());
+        }
 
         let items = [...store.list];
         items = items.filter(item => item.rating >= store.minRating)
-        console.log(items)
         $('.js-bookmarks').html(generateHtmlString(items));
     }
 
     function handleAddClick() {
-        $('.get-add-form').on('click', function(event) {
-            $('.add-or-filter').html(generateAddForm())
+        $('.add-or-filter').on('click', '.get-add-form', function(event) {
+            store.adding = true;
+            render();
         })
     }
-
-
-
-
-    //need to add the function to bring back the original field
-    //update to use formData api?
 
 
 
     function handleAddSubmit() {
         $('.add-or-filter').on('submit', $('.add-form'), function(event) {
             event.preventDefault();
-            const title = $('#title').val();
-            const url = $('#url').val();
-            const description = $('#description').val();
-            const rating = $('#rating').val();
-            api.createNewBookmark(title, rating, url, description)
+            let formData = new FormData(document.querySelector('.add-form'));
+
+            api.createNewBookmark(formData.get('title'), formData.get('rating'), formData.get('url'), formData.get('desc'))
                 .then((newBookmark) => {
                     store.addBookmark(newBookmark);
+                    store.adding = false;
                     render();
                 })
                 //.catch(err => store.addErrorToStoreAndRender(err.message));
@@ -46,7 +44,7 @@ const bookmarks = (function() {
     }
 
     function handleExpandClicked() {
-        $('.js-bookmarks').on('click', '.bookmark-element', function(event) {
+        $('.js-bookmarks').on('click', '.bookmark-item', function(event) {
             const id = getItemIdFromElement(event.currentTarget);
             Item.flipExpanded(store.findById(id));
             render();
@@ -71,22 +69,19 @@ const bookmarks = (function() {
 
 
 
-    //get help here
+    //get help here   ---- target="_blank" use a href instead of button
 
     function handleVisitClick() {
-        $('.js-bookmarks').on('click', '.visit-site', function(event) {
+        $('.js-bookmarks').on('submit', function(event) {
             window.location = $('.visit-site').val();
         })
     }
 
 
-    // get help here 
 
-    function handleMinRatingSort() {
-        $('min-rating-form').on('click','#min-rating-selector', function(event) {
-            event.preventDefault();
-            console.log('in min sort')
-            store.setMinRating($('#min-rating-selector').val());
+    function handleMinRatingFilter() {
+        $('.add-or-filter').on('change','#min-rating-selector', function(event) {
+            store.setMinRatingFilter(this.value);
             render();
         })
     }
@@ -103,11 +98,11 @@ const bookmarks = (function() {
             <label for="description">Description</label>
             <input type="text" name="description" id="description">
             <select name="rating" id="rating">
-                <option value="1">1 star</option>
-                <option value="2">2 stars</option>
-                <option value="3">3 stars</option>
-                <option value="4">4 stars</option>
                 <option value="5">5 stars</option>
+                <option value="4">4 stars</option>
+                <option value="3">3 stars</option>
+                <option value="2">2 stars</option>
+                <option value="1">1 star</option>
             </select>
             <button type="submit" class="submit-add-form">add bookmark</button>
         </form>
@@ -115,9 +110,6 @@ const bookmarks = (function() {
     }
 
 
-    // add this html back in once the add form has been submitted
-
-    
     function generateAddFilter() {
         return `
             <button type="button" class="get-add-form">add bookmark</button>
@@ -137,12 +129,9 @@ const bookmarks = (function() {
             <li class="bookmark-element" data-item-id="${bookmark.id}">
                 <div class ="bookmark-box">
                     <div class="bookmark-item">
-                        <h3 class="title">${bookmark.title}</h3>
+                        <a href="${bookmark.url}><h3 class="title">${bookmark.title}</h3></a>
                         <p class="rating">${bookmark.rating}</p>
                     </div>   
-                    <form action="${bookmark.url}" class="visit-site">
-                        <button type="submit" class="visit-site-button">Visit</button>
-                    </form>
                 </div>
             </li>
         `
@@ -154,12 +143,12 @@ const bookmarks = (function() {
             <button class="js-delete-button">remove</button>
             <div class ="bookmark-box">
                 <div class="bookmark-item">
-                    <h3 class="title">${bookmark.title}</h3>
+                    <a href="${bookmark.url}><h3 class="title">${bookmark.title}</h3></a>
                     <p class="rating">${bookmark.rating}</p>
                     <p class="description">${bookmark.desc}</p>
                 </div>
 
-                <button class="visit-site" value=${bookmark.url}>visit</button>
+                <a href=${bookmark.url} class="button-like">Take me there, Alfred</a>
 
             </div>
 
@@ -173,7 +162,7 @@ const bookmarks = (function() {
         handleExpandClicked();
         handleDelete();
         handleVisitClick();
-        handleMinRatingSort();
+        handleMinRatingFilter();
     }
 
     return {
@@ -181,8 +170,3 @@ const bookmarks = (function() {
         eventListeners,
     }
 }());
-
-
-                // <form action="${bookmark.url}" class="visit-site">
-                //     <button type="submit" class="visit-site-button">Visit</button>
-                // </form>
