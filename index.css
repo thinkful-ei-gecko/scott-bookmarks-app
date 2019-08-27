@@ -1,11 +1,12 @@
 * {
     box-sizing: border-box;
-    color: #f7f7f7;
+    color: #f9f2d7;
     font-family: 'Merriweather', serif;
 }
 
 body {
-    background: #323643;
+    background: #141829;
+    
 }
 
 li {
@@ -13,16 +14,8 @@ li {
 }
 
 h1, h2 {
-    color: #93deff;
+    color: #f2dea8;
 }
-
-/* .bookmark-item {
-    display: flex;
-    width: 80%;
-    margin: 0 auto;
-    text-align: center;
-    justify-content: flex-start;
-} */
 
 h3, .rating {
     display: inline;
@@ -33,7 +26,8 @@ h3, .rating {
 
 
 .bookmark-box {
-    border: 1px solid #606470;
+    border: 1px solid #21294c;
+    background: #21294c;
     border-radius: 3px;
     width: 90%;
     margin: 0 auto;
@@ -53,7 +47,7 @@ a {
     text-decoration: none;
     font-size: 18px;
     text-align: left;
-    color: #93deff;
+    color: #f2dea8;
 }
 
 label {
@@ -64,12 +58,14 @@ label {
 button {
     width: 24px;
     height: 24px;
+    line-height: 12px;
     /* margin-left: auto;
     margin-right: auto; */
+    text-align: center;
     padding: 5px;
     border: none;
-    background-color: #606470;
-    color: #f7f7f7;
+    background-color: #21294c;
+    color: #f2dea8;
     font-size: 16px;
     border-radius: 3px;
     cursor: pointer;
@@ -81,14 +77,14 @@ button {
 select {
     height: 24px;
     width: 20%;  
-    background-color: #606470;
-    color: #f7f7f7;
+    background-color: #21294c;
+    color: #f2dea8;
     margin: 0 auto;
     border: none;
     border-radius: 3px;
 }
 button:hover, button:focus {
-    background-color: #93deff;
-    color: #323643;
+    background-color: #f9f2d7;
+    color: #141829;
     font-weight: bold;
 }
