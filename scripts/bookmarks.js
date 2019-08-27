@@ -9,6 +9,8 @@ const bookmarks = (function() {
         }
         if (store.error.message) {
             $('.error-message').append(store.error.message);
+        } else {
+            $('.error-message').empty();
         }
 
         let items = [...store.list];
@@ -23,7 +25,6 @@ const bookmarks = (function() {
         })
     }
 
-
     function handleAddSubmit() {
         $('.add-or-filter').on('submit', $('.add-form'), function(event) {
             event.preventDefault();
@@ -34,7 +35,7 @@ const bookmarks = (function() {
                 .then((newBookmark) => {
                     store.addBookmark(newBookmark);
                     store.adding = false;
-                    $('.error-message').empty();
+                    store.error.message = null;
                     render();
                 })
                 .catch(err => {
@@ -73,7 +74,6 @@ const bookmarks = (function() {
         })
 
     }
-    // bug with selector - does not change value default and cannot select 1 star again
 
     function handleMinRatingFilter() {
         $('.add-or-filter').on('change','#min-rating-selector', function(event) {
@@ -85,6 +85,7 @@ const bookmarks = (function() {
     function handleCancelClicked() {
         $('.add-or-filter').on('click', '.cancel', function(event) {
             store.adding = false;
+            store.error.message = null;
             render();
         })
     }
@@ -97,7 +98,7 @@ const bookmarks = (function() {
             <label for="url">URL</label>
             <input type="url" name="url" id="url" pattern="https?://.+" value="http://www." required>
             <label for="description">Description</label>
-            <input type="text" name="description" id="description">
+            <input type="text" name="description" id="description" placeholder="Enter a short description">
             <select name="rating" id="rating">
                 <option value="5">5 stars</option>
                 <option value="4">4 stars</option>
@@ -141,7 +142,6 @@ const bookmarks = (function() {
 
     function generateShortElement(bookmark) {
         return `
-
             <li class="bookmark-element" data-item-id="${bookmark.id}">
                 <div class ="bookmark-box">
                     <div class="bookmark-item">
