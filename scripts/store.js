@@ -1,6 +1,8 @@
 'use strict';
 
 const store = (function(){
+    const error = {message: null};
+
     const addBookmark = function(bookmark) {
         bookmark.expanded = false;
         this.list.push(bookmark);
@@ -22,17 +24,23 @@ const store = (function(){
         this.minRating = rating;
     }
 
+    const addErrorToStore = function(errorMessage) {
+        error.message = errorMessage;
+        console.log(error.message)
+    }
 
     return {
         list: [],
         adding: false,
-        minRating: 1,
+        minRating: 0,
+        error,
 
         addBookmark,
         setAdding,
         findById,
         findAndDelete,
         setMinRatingFilter,
+        addErrorToStore,
     }
 
 }());

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name='description' content='Bookmark Butler'>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel='stylesheet' href='index.css' type='text/css' />
     <link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
     <title>Bookmark Butler</title>
@@ -14,12 +16,12 @@
         <h1>Bookmark Butler</h1>
         <h2>Keeping tabs so you don't have to</h2>
     </header>
-
     <main>
-        <section class="add-or-filter">
+        <p class="error-message"></p>
+        <section class="add-or-filter" aria-live="polite">
             <button type="button" class="get-add-form">+</button>
-            <label for="min-rating-selector">Filter by rating</label>
             <select name="min-rating" id="min-rating-selector">
+                <option value="0" selected="selected">filter by rating</option>
                 <option value="1">1 star</option>
                 <option value="2">2 stars</option>
                 <option value="3">3 stars</option>
@@ -27,12 +29,10 @@
                 <option value="5">5 stars</option>
             </select>
         </section>
-
-        <section class="js-bookmarks-display">
+        <section class="js-bookmarks-display" aria-live="polite">
             <ul class="js-bookmarks"></ul>
         </section>
     </main>
-
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/cuid/1.3.8/browser-cuid.min.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="scripts/item.js"></script>
