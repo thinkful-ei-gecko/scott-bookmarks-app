@@ -112,7 +112,8 @@ const bookmarks = (function() {
 
     function generateAddFilter() {
         return `
-            <button type="button" class="get-add-form">add bookmark</button>
+            <button type="button" class="get-add-form">+</button>
+            <label for="min-rating-selector">Filter by rating</label>
             <select name="min-rating" id="min-rating-selector">
                 <option value="1">1 star</option>
                 <option value="2">2 stars</option>
@@ -120,6 +121,7 @@ const bookmarks = (function() {
                 <option value="4">4 stars</option>
                 <option value="5">5 stars</option>
             </select>
+        </section>
         `
     }
 

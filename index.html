@@ -6,6 +6,7 @@
     <meta name='description' content='Bookmark Butler'>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel='stylesheet' href='index.css' type='text/css' />
+    <link href="https://fonts.googleapis.com/css?family=Merriweather&display=swap" rel="stylesheet">
     <title>Bookmark Butler</title>
 </head>
 <body>
@@ -16,14 +17,15 @@
 
     <main>
         <section class="add-or-filter">
-            <button type="button" class="get-add-form">add bookmark</button>
-                <select name="min-rating" id="min-rating-selector">
-                    <option value="1">1 star</option>
-                    <option value="2">2 stars</option>
-                    <option value="3">3 stars</option>
-                    <option value="4">4 stars</option>
-                    <option value="5">5 stars</option>
-                </select>
+            <button type="button" class="get-add-form">+</button>
+            <label for="min-rating-selector">Filter by rating</label>
+            <select name="min-rating" id="min-rating-selector">
+                <option value="1">1 star</option>
+                <option value="2">2 stars</option>
+                <option value="3">3 stars</option>
+                <option value="4">4 stars</option>
+                <option value="5">5 stars</option>
+            </select>
         </section>
 
         <section class="js-bookmarks-display">
