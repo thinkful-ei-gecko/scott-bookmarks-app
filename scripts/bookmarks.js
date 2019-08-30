@@ -1,6 +1,6 @@
 'use strict';
 
-const bookmarks = (function() {
+const bookmarks = (function () {
     function render() {
         if (store.adding) {
             $('.add-or-filter').html(generateAddForm());
@@ -19,17 +19,17 @@ const bookmarks = (function() {
     }
 
     function handleAddClick() {
-        $('.add-or-filter').on('click', '.get-add-form', function(event) {
+        $('.add-or-filter').on('click', '.get-add-form', function (event) {
             store.adding = true;
             render();
         })
     }
 
     function handleAddSubmit() {
-        $('.add-or-filter').on('submit', $('.add-form'), function(event) {
+        $('.add-or-filter').on('submit', $('.add-form'), function (event) {
             event.preventDefault();
+
             let formData = new FormData(document.querySelector('.add-form'));
-            console.log(formData);
 
             api.createNewBookmark(formData.get('title'), formData.get('rating'), formData.get('url'), formData.get('description'))
                 .then((newBookmark) => {
@@ -52,7 +52,7 @@ const bookmarks = (function() {
     }
 
     function handleExpandClicked() {
-        $('.js-bookmarks').on('click', '.bookmark-item', function(event) {
+        $('.js-bookmarks').on('click', '.bookmark-item', function (event) {
             const id = getItemIdFromElement(event.currentTarget);
             Item.flipExpanded(store.findById(id));
             render();
@@ -66,7 +66,7 @@ const bookmarks = (function() {
     }
 
     function handleDelete() {
-        $('.js-bookmarks').on('click', '.js-delete-button', function(event) {
+        $('.js-bookmarks').on('click', '.js-delete-button', function (event) {
             const id = getItemIdFromElement(event.currentTarget);
             api.deleteBookmark(id);
             store.findAndDelete(id);
@@ -76,14 +76,14 @@ const bookmarks = (function() {
     }
 
     function handleMinRatingFilter() {
-        $('.add-or-filter').on('change','#min-rating-selector', function(event) {
+        $('.add-or-filter').on('change', '#min-rating-selector', function (event) {
             store.setMinRatingFilter(this.value);
             render();
         })
     }
 
     function handleCancelClicked() {
-        $('.add-or-filter').on('click', '.cancel', function(event) {
+        $('.add-or-filter').on('click', '.cancel', function (event) {
             store.adding = false;
             store.error.message = null;
             render();
@@ -96,7 +96,7 @@ const bookmarks = (function() {
             <label for="title">Title</label>
             <input type="text" name="title" id="title" required>
             <label for="url">URL</label>
-            <input type="url" name="url" id="url" pattern="https?://.+" value="http://www." required>
+            <input type="url" name="url" id="url" pattern="http[s]?://.+.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk)(\:[0-9]+)*(/($|[a-zA-Z0-9\.\,\;\?\'\\\+&%\$#\=~_\-]+))*$" placeholder="http://www.google.com" required>
             <label for="description">Description</label>
             <input type="text" name="description" id="description" placeholder="Enter a short description">
             <select name="rating" id="rating">
@@ -176,7 +176,7 @@ const bookmarks = (function() {
                     <p class="description">${bookmark.desc}</p>
                 </div>
                 <div class="center">
-                    <a href="${bookmark.url}" class="button-like">Take me there, Alfred</a>
+                    <a href="${bookmark.url}" class="button-like">${bookmark.url}</a>
                 </div>
             </div>
         </li>
